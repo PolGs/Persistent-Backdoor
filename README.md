@@ -2,9 +2,13 @@
 ## _Red Team / Educational use ONLY_ </br>
 
 ### How to Use</br>
-Compile client:
-i686-w64-mingw32-gcc -o /home/kali/Documents/EternalPurple/bin/client/fun2.exe backdoor.c -lwsock32 -lwininet </br>
-Compile server:
+Compile client for victims windows machine:
+i686-w64-mingw32-gcc -o /home/kali/Documents/EternalPurple/bin/client/fun2.exe /home/kali/Documents/EternalPurple/backdoor.c -lwsock32 -lwininet </br>
+Compile server for linux attackers machine:
+gcc /home/kali/Documents/EternalPurple/server.c -o /home/kali/Documents/EternalPurple/bin/server/server.exe
+
+Commands assume that you have a linux OS and mingw installed
+Also that you have backdoor.c and server.c on a Folder Called EternalPurple on your Documents
 
 
 #### Functionalities: </br>
