@@ -18,7 +18,8 @@ Also that you have backdoor.c and server.c on a Folder Called EternalPurple on y
 
 
 ## Functionalities: </br>
-
+### Screenshot:
+![alt text](http://url/to/img.png)
 thanks to  • SCHØØL ZERØ • for tutorials on how to do this
 https://www.youtube.com/c/SCHØØLZERØ
 Playlist Creating similar RAT<br>
