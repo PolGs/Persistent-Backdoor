@@ -1,9 +1,10 @@
 # C++ Backdoor/RAT </br>
 ## _Red Team / Educational use ONLY_ </br>
-##Functionalities: </br>
 
-##How to Use</br>
+###How to Use</br>
+i686-w64-mingw32-gcc -o /home/kali/Documents/EternalPurple/bin/client/fun2.exe backdoor.c -lwsock32 -lwininet
 
+###Functionalities: </br>
 nircmd: https://www.nirsoft.net/utils/nircmd.html
 thanks to  • SCHØØL ZERØ • for tutorials on how to do this
 https://www.youtube.com/c/SCHØØLZERØ
