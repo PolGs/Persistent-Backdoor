@@ -1,5 +1,5 @@
 # C++ Backdoor/RAT </br>
-## _Red Team / Educational use ONLY_ </br>
+## _Ethical Remote Access Tool for Red Teams / Educational use ONLY_ </br>
 
 ### How to Use</br>
 1)Compile client for victims windows machine:
@@ -17,7 +17,7 @@ Commands assume that you have a linux OS and mingw installed
 Also that you have backdoor.c and server.c on a Folder Called EternalPurple on your Documents
 
 
-#### Functionalities: </br>
+### Functionalities: </br>
 
 thanks to  • SCHØØL ZERØ • for tutorials on how to do this
 https://www.youtube.com/c/SCHØØLZERØ
@@ -27,5 +27,11 @@ https://youtu.be/6Dc8i1NQhCM
 Easy metasploit spyware:
 https://youtu.be/V67VIQB7N0w
 
-#### Other
+### Other
 To gain spyware functionalities you can use nircmd: https://www.nirsoft.net/utils/nircmd.html
+
+## License
+
+MIT
+
+**Free Software, Hell Yeah!**
