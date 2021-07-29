@@ -21,16 +21,16 @@ Also that you have backdoor.c and server.c on a Folder Called EternalPurple on y
 ### Screenshot:
 ![alt text](https://github.com/PolGs/C-EthicalRAT/blob/main/Screenshot%202021-07-29%20012247.png?raw=true)
 thanks to  • SCHØØL ZERØ • for tutorials on how to do this
-https://www.youtube.com/c/SCHØØLZERØ
+https://www.youtube.com/c/SCHØØLZERØ <br>
 Playlist Creating similar RAT<br>
 https://youtube.com/playlist?list=PLSqjYSJtqeaV1Hdk2ZVnr90KpDObfzDSs
-https://youtu.be/6Dc8i1NQhCM
-Easy metasploit spyware:
+https://youtu.be/6Dc8i1NQhCM<br>
+Easy metasploit spyware:<br>
 https://youtu.be/V67VIQB7N0w
 
 ## Other
 To gain spyware functionalities you can use nircmd: https://www.nirsoft.net/utils/nircmd.html
 
 ## License
-Open Source
+Open Source<br>
 **Free Software, Hell Yeah!**
