@@ -1,6 +1,7 @@
 # C++ Backdoor/RAT </br>
 ### _Ethical Remote Access Tool for Red Teams / Educational use ONLY_ </br>
-**Pol Galvez**
+Do not use for Black Hat purposes
+**by Pol Galvez**
 
 ## How to Use</br>
 1) **Compile client for victims windows machine:**
