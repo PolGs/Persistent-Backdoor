@@ -1,3 +1,4 @@
+//Code by docs.microsoft.com
 #include <windows.h>
 #include <tchar.h>
 #include <stdio.h>
