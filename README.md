@@ -4,7 +4,7 @@
 ## How to Use</br>
 1) **Compile client for victims windows machine:**
 ```sh
-i686-w64-mingw32-gcc -o /home/kali/Documents/EternalPurple/bin/client/backdoor.exe /home/kali/Documents/EternalPurple/backdoor.c -lwsock32 -lwininet
+i686-w64-mingw32-gcc -o /Documents/EternalPurple/bin/client/backdoor.exe /Documents/EternalPurple/backdoor.c -lwsock32 -lwininet
 ```
 
 2)** Compile server for linux attackers machine:**
