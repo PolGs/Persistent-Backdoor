@@ -2,16 +2,20 @@
 ### _Ethical Remote Access Tool for Red Teams / Educational use ONLY_ </br>
 
 ## How to Use</br>
-1)Compile client for victims windows machine:
+1) **Compile client for victims windows machine:**
 ```sh
-i686-w64-mingw32-gcc -o /home/kali/Documents/EternalPurple/bin/client/fun2.exe /home/kali/Documents/EternalPurple/backdoor.c -lwsock32 -lwininet
+i686-w64-mingw32-gcc -o /home/kali/Documents/EternalPurple/bin/client/backdoor.exe /home/kali/Documents/EternalPurple/backdoor.c -lwsock32 -lwininet
 ```
 
-2)Compile server for linux attackers machine:
+2)** Compile server for linux attackers machine:**
 ```sh
 gcc /home/kali/Documents/EternalPurple/server.c -o /home/kali/Documents/EternalPurple/bin/server/server.exe
 ```
-3)Execute
+3) **Execute**
+```sh
+./server.exe
+backdoor.exe
+```
 
 Commands assume that you have a linux OS and mingw installed
 Also that you have backdoor.c and server.c on a Folder Called EternalPurple on your Documents
