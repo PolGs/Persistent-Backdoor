@@ -2,7 +2,7 @@
 ### _Ethical Remote Access Tool for Red Teams / Educational use ONLY_ </br>
 Do not use for Black Hat purposes
 **by Pol Galvez**
-
+![alt text](https://raw.githubusercontent.com/PolGs/C-EthicalRAT/main/image_2021-07-30_221130.png)
 ## How to Use</br>
 1) **Compile client for victims windows machine:**
 ```sh
@@ -26,6 +26,7 @@ Also that you have backdoor.c and server.c on a Folder Called EternalPurple on y
 ## Functionalities: </br>
 ### Screenshot:
 ![alt text](https://github.com/PolGs/C-EthicalRAT/blob/main/Screenshot%202021-07-29%20012247.png?raw=true)
+
 thanks to  • SCHØØL ZERØ • for tutorials on how to do this
 https://www.youtube.com/c/SCHØØLZERØ <br>
 Playlist Creating similar RAT<br>
