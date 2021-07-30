@@ -40,12 +40,12 @@ To gain spyware functionalities you can use nircmd: https://www.nirsoft.net/util
 ## nircmd command to take screenshots
 nircmd.exe savescreenshot screen1.png
 
-##certutil comand to encode / decode or use UPX to Obfuscate executable \n
+## UPX to Obfuscate executable \n
 UPX: https://upx.github.io
 ```sh
 upx program.exe
 ```
-
+You can also use certutil to encode executable
 ```sh
 certutil -encode test.exe test.txt
 ```
