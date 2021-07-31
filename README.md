@@ -32,14 +32,17 @@ Also that you have backdoor.c and server.c on a Folder Called EternalPurple on y
 
 
 ## Functionalities: </br>
-### Screenshot:
+### Enable run on startup:
 ![alt text](https://github.com/PolGs/C-EthicalRAT/blob/main/Screenshot%202021-07-29%20012247.png?raw=true)
 
+## Thanks to
 thanks to  • SCHØØL ZERØ • for tutorials on how to do this
 https://www.youtube.com/c/SCHØØLZERØ <br>
-Playlist Creating similar RAT<br>
-https://youtube.com/playlist?list=PLSqjYSJtqeaV1Hdk2ZVnr90KpDObfzDSs
+Creating similar RAT<br>
 https://youtu.be/6Dc8i1NQhCM<br>
+Playlist on basic windows rat .dll</br>
+https://youtube.com/playlist?list=PLSqjYSJtqeaV1Hdk2ZVnr90KpDObfzDSs
+
 Easy metasploit spyware:<br>
 https://youtu.be/V67VIQB7N0w
 
