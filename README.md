@@ -1,4 +1,4 @@
-# C++ Backdoor/RAT </br>
+# C Persistent Encoded RAT </br>
 **by Pol Galvez** </br>
 ### _Ethical Remote Access Tool for Red Teams / Educational use ONLY_ </br>
 Do not use for Black Hat purposes
