@@ -2,7 +2,7 @@
 [![Version](https://img.shields.io/badge/EP-0.1-brightgreen.svg?maxAge=259200)]()
 [![Stage](https://img.shields.io/badge/Release-Testing-brightgreen.svg)]()
 [![Build](https://img.shields.io/badge/Supported_OS-Windows/Linux-orange.svg)]()
-[![Contributions Welcome](https://img.shields.io/badge/Type-Undetected-blue.svg?style=flat)]()
+[![Contributions Welcome](https://img.shields.io/badge/New-Major-Update-Coming-blue.svg?style=flat)]()
 </br>
 **by Pol Galvez** </br>
 ### _Ethical Remote Access Tool for Red Teams / Educational use ONLY_ </br>
