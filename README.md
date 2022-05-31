@@ -48,7 +48,7 @@ https://youtu.be/6Dc8i1NQhCM<br>
 Playlist on basic windows rat .dll</br>
 https://youtube.com/playlist?list=PLSqjYSJtqeaV1Hdk2ZVnr90KpDObfzDSs
 
-Easy metasploit spyware:<br>
+Easy metasploit spyware tutorial:<br>
 https://youtu.be/V67VIQB7N0w
 
 ## Other
